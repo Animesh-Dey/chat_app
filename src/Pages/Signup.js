@@ -35,6 +35,7 @@ const Signup = () => {
             const update = await updateProfile(auth.currentUser, {
                 displayName: username,
             });
+            console.log(update)
 
             const user = userCredential.user;
             console.log(user,"token details")

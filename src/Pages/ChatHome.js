@@ -188,7 +188,7 @@ export default function () {
 
       <Paper style={right}>
         <h4 style={{ margin: 2, padding: 10 }}>
-          {receiverData ? receiverData.username : user?.displayName}{" "}
+          {receiverData ? receiverData.username : ""}{" "}
         </h4>
 
         <Divider />
@@ -204,7 +204,7 @@ export default function () {
                     margin: 2,
                     display: "flex",
                     flexDirection:
-                      user?.uid == messages.messageUserId
+                      user?.uid === messages.messageUserId
                         ? "row-reverse"
                         : "row",
                   }}
@@ -214,15 +214,15 @@ export default function () {
                       backgroundColor: "#BB8FCE",
                       padding: 6,
                       borderTopLeftRadius:
-                        user?.uid == messages.messageUserId ? 10 : 0,
+                        user?.uid === messages.messageUserId ? 10 : 0,
                       borderTopRightRadius:
-                        user?.uid == messages.messageUserId ? 0 : 10,
+                        user?.uid === messages.messageUserId ? 0 : 10,
                       borderBottomLeftRadius: 10,
                       borderBottomRightRadius: 10,
                       maxWidth: 400,
                       fontSize: 15,
                       textAlign:
-                        user?.uid == messages.messageUserId ? "right" : "left",
+                        user?.uid === messages.messageUserId ? "right" : "left",
                     }}
                   >
                     {messages.message}
@@ -270,6 +270,7 @@ const right = {
   height: "95vh",
   margin: 10,
   flexDirection: "column",
+  justifyContent: "space-between"
 };
 
 const input = {
@@ -285,6 +286,5 @@ const messagesDiv = {
   display: "flex",
   flexDirection: "column",
   flex: 1,
-  maxHeight: 460,
   overflowY: "scroll",
 };

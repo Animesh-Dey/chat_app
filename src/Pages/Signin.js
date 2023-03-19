@@ -3,8 +3,8 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+// import FormControlLabel from "@mui/material/FormControlLabel";
+// import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -15,7 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { auth } from '../Firebase/Firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 
 const theme = createTheme();
 
@@ -23,7 +23,7 @@ const theme = createTheme();
 const Signin = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
     const navigate = useNavigate();
     const handleSubmit = async (event) => {
@@ -38,7 +38,7 @@ const Signin = () => {
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-
+                console.log(errorCode)
                 alert(errorMessage);
             });
     };
