@@ -33,8 +33,9 @@ function UsersComponent(props) {
     <List
       dense
       sx={{
-        width: "100%", maxWidth: 360,
-        bgcolor: "background.paper"
+        width: "100%",
+        maxWidth: 360,
+        bgcolor: "background.paper",
       }}
     >
       {props.users?.map((value, index) => {
@@ -54,8 +55,7 @@ function UsersComponent(props) {
                     src={`${value.username}.jpg`}
                   />
                 </ListItemAvatar>
-                <ListItemText id={labelId}
-                  primary={`${value.username}`} />
+                <ListItemText id={labelId} primary={`${value.username}`} />
               </ListItemButton>
             </ListItem>
           );
@@ -112,7 +112,7 @@ export default function () {
 
   const sendMessage = async () => {
     try {
-      if (user && receiverData) {
+      if (user && receiverData && chatMessage !== "") {
         await addDoc(
           collection(
             db,
@@ -270,7 +270,7 @@ const right = {
   height: "95vh",
   margin: 10,
   flexDirection: "column",
-  justifyContent: "space-between"
+  justifyContent: "space-between",
 };
 
 const input = {
