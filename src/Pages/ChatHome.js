@@ -81,7 +81,7 @@ export default function () {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // messageBox.current.lastElementChild?.scrollIntoView();
+    messageBox.current.scrollTop = messageBox.current.scrollHeight;
     const unsub = onSnapshot(collection(db, "users"), (snapshot) => {
       setUsers(snapshot.docs.map((doc) => doc.data()));
     });
@@ -190,6 +190,7 @@ export default function () {
             currentUserId={user?.uid}
             scroll={() => {
               // console.log(messageBox?.current);
+              messageBox.current.scrollTop = messageBox.current.scrollHeight;
             }}
           />
         </div>
