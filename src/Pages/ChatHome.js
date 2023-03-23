@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Paper from "@mui/material/Paper";
 import { Button, Divider, IconButton } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
@@ -18,6 +18,8 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
+import { useDispatch } from "react-redux";
+import { logout } from "../Reducers/UserSlice";
 
 function UsersComponent(props) {
   const handleToggle = (username, userId) => {
@@ -25,7 +27,7 @@ function UsersComponent(props) {
       username: username,
       userId: userId,
     });
-
+    props.scroll();
     props.navigate(`/chat-home/${userId}`);
   };
 
@@ -66,6 +68,7 @@ function UsersComponent(props) {
 
 export default function () {
   const [users, setUsers] = useState([]);
+  const messageBox = useRef(null);
 
   const [receiverData, setReceiverData] = useState(null);
   const [chatMessage, setChatMessage] = useState("");
@@ -75,8 +78,10 @@ export default function () {
   const user = auth.currentUser;
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    // messageBox.current.lastElementChild?.scrollIntoView();
     const unsub = onSnapshot(collection(db, "users"), (snapshot) => {
       setUsers(snapshot.docs.map((doc) => doc.data()));
     });
@@ -168,6 +173,7 @@ export default function () {
             color="secondary"
             onClick={() => {
               auth.signOut();
+              dispatch(logout());
               navigate("/");
             }}
           >
@@ -182,6 +188,9 @@ export default function () {
             setReceiverData={setReceiverData}
             navigate={navigate}
             currentUserId={user?.uid}
+            scroll={() => {
+              // console.log(messageBox?.current);
+            }}
           />
         </div>
       </Paper>
@@ -192,7 +201,7 @@ export default function () {
         </h4>
 
         <Divider />
-        <div style={messagesDiv}>
+        <div style={messagesDiv} ref={messageBox} id="your_div">
           {/* messages area */}
 
           {allMessages &&

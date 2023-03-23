@@ -1,22 +1,24 @@
-import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import ChatHome from './Pages/ChatHome'
-import Signin from './Pages/Signin'
-import Signup from './Pages/Signup'
+import React, { useEffect, useLayoutEffect } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ChatHome from "./Pages/ChatHome";
+import Signin from "./Pages/Signin";
+import Signup from "./Pages/Signup";
+import { useDispatch } from "react-redux";
+import { setIsAuthenticated } from "./Reducers/UserSlice";
+import Routings from "./Routes";
 
 const App = () => {
-  return (
-      <BrowserRouter>
-        <Routes>
-          <Route exact path="/"
-            element={<Signin />} />
-          <Route path="/Signup"
-            element={<Signup />} />
-          <Route path="/chat-home/:receiverId"
-            element={<ChatHome />} />
-        </Routes>
-      </BrowserRouter>
-  )
-}
+  const dispatch = useDispatch();
+  useEffect(() => {
+    fetchLocalData();
+  }, []);
+  const fetchLocalData = async () => {
+    const storedData = await localStorage.getItem("ISAUTHENTICATED");
+    if (storedData !== null) {
+      dispatch(setIsAuthenticated(storedData));
+    }
+  };
+  return <Routings />;
+};
 
-export default App
+export default App;
